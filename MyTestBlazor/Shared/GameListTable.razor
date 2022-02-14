@@ -1,0 +1,75 @@
+﻿<div class="row">
+    <dic class="col text-center">
+        <h1>Welcome Bro</h1>
+    </dic>
+</div>
+
+<div class="row">
+    <dic class="col text-center">
+        <h2>All Games</h2>
+    </dic>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th>Name</th>
+            <th>Genre</th>
+            <th>Release Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (games is null)
+        {
+            <tr>Loading...</tr>
+        }
+        else if (games.Count == 0)
+        {
+            <tr>No elements...</tr>
+        }
+        else
+        {
+            @foreach (var item in games)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Genre</td>
+                    <td>@item.ReleaseDate.ToShortDateString()</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
+
+@code
+{
+    private List<Game> games { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        games = new List<Game>
+        {
+            new()
+            {
+                Name = "Farmila",
+                Genre = "Simulator",
+                ReleaseDate = DateTime.Today
+            },
+            new()
+            {
+                Name = "Vedmachilo",
+                Genre = "RPGG",
+                ReleaseDate = DateTime.Today
+            },
+            new()
+            {
+                Name = "Destroyer",
+                Genre = "Action",
+                ReleaseDate = new DateTime(2000, 2, 1)
+            },
+        };
+    }
+}
