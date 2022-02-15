@@ -1,0 +1,51 @@
+﻿@typeparam TItem
+@if (ListOfItems is null)
+{
+    @if (NullList != null)
+    {
+        @NullList
+    }
+    else
+    {
+        // No internet
+        //Тут должна быть гифка
+        <img src height="200"/>
+        <h1>123</h1>
+    }
+}
+else if (ListOfItems.Count == 0)
+{
+    @if (EmptyList != null)
+    {
+        @EmptyList
+    }
+    else
+    {
+        // No internet
+        //Тут должна быть гифка
+        <img src height="200"/>
+        <h1>123</h1>
+    }
+}
+else
+{
+    @foreach (var item in ListOfItems)
+    {
+        @ItemTemplate(item)
+    }
+}
+
+@code {
+
+    [Parameter]
+    public RenderFragment NullList { get; set; }
+
+    [Parameter]
+    public RenderFragment EmptyList { get; set; }
+
+    [Parameter]
+    public RenderFragment<TItem> ItemTemplate { get; set; }
+
+    [Parameter]
+    public List<TItem> ListOfItems { get; set; }
+}

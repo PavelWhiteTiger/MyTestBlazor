@@ -1,16 +1,20 @@
 ﻿@page "/"
 
-<GameListTable Games="games"></GameListTable>
+<GameListTable Games="games">
+</GameListTable>
+
 <IndividualGame Game="@oneGameToShow" IsTable="false" SwitchGame="ShowNewGame" DisplayButtons="true"></IndividualGame>
+
 
 @code
 {
-    private List<Game> games;
+    private List<Game> games ;
     Random rnd;
     Game oneGameToShow;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(2000);
         games = new List<Game>
         {
             new()

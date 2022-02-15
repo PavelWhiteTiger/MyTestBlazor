@@ -23,21 +23,11 @@
         </tr>
         </thead>
         <tbody>
-        @if (Games is null)
-        {
-            <tr>Loading...</tr>
-        }
-        else if (Games.Count == 0)
-        {
-            <tr>No elements...</tr>
-        }
-        else
-        {
-            @foreach (var item in Games)
-            {
-                <IndividualGame Game="item" IsTable="true" DisplayButtons="displaybuttons" DeleteGame="DeleteTheGame" DeleteGame2="DeleteTheGame2"/>
-            }
-        }
+        <GenericList ListOfItems="Games">
+            <ItemTemplate Context="game">
+                <IndividualGame Game="game" IsTable="true" DisplayButtons="displaybuttons" DeleteGame="DeleteTheGame"></IndividualGame>
+            </ItemTemplate>
+        </GenericList>
         </tbody>
     </table>
 </div>
@@ -47,15 +37,12 @@
     [Parameter]
     public List<Game> Games { get; set; }
 
+
+
     bool displaybuttons;
 
     void DeleteTheGame(Game game)
     {
         Games.Remove(game);
-    }
-    void DeleteTheGame2(Game game)
-    {
-        Games.Remove(game);
-        StateHasChanged();
     }
 }
