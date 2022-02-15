@@ -1,11 +1,13 @@
 ﻿@page "/"
 
 <GameListTable Games="games"></GameListTable>
-<IndividualGame Game="@games.First()"></IndividualGame>
+<IndividualGame Game="@oneGameToShow" IsTable="false" SwitchGame="ShowNewGame" DisplayButtons="true"></IndividualGame>
 
 @code
 {
     private List<Game> games;
+    Random rnd;
+    Game oneGameToShow;
 
     protected override void OnInitialized()
     {
@@ -30,6 +32,35 @@
                 ReleaseDate = new DateTime(2000, 2, 1)
             },
         };
+        rnd = new Random();
+        oneGameToShow = games[rnd.Next(0, games.Count)];
+    }
+
+    void ShowNewGame()
+    {
+        oneGameToShow = SwitchGame();
+    }
+
+    Game SwitchGame()
+    {
+        Game tmpGame;
+        if (games is {Count: >= 2})
+        {
+            int iteartor = rnd.Next(0, games.Count);
+            tmpGame = games[iteartor];
+        }
+        else if (games is {Count: 1})
+        {
+            tmpGame = games.First();
+        }
+        else
+        {
+            tmpGame = new Game
+            {
+                Name = "No items!", ReleaseDate = DateTime.Now
+            };
+        }
+        return tmpGame;
     }
 
 }

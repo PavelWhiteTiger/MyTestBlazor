@@ -7,21 +7,14 @@
             <p>@Game.ReleaseDate.ToShortDateString()</p>
         </div>
     </div>
-    @if (message is not null)
-    {
-        <div class="row">
-            <div class="col offset-3">
-                <button class="btn btn-danger" @onclick="Delete">Delete</button>
-            </div>
-            <div class="col">
-                @if (message is not null)
-                {
-                    <span class="text-danger">@message</span>
-                    message = null;
-                }
-            </div>
+
+    <div class="row">
+        <div class="col offset-3">
+            <button class="btn btn-danger" @onclick="SwitchGame">Delete</button>
         </div>
-    }
+        <div class="col">
+        </div>
+    </div>
 }
 else
 {
@@ -32,13 +25,10 @@ else
         <td>
             @if (DisplayButtons)
             {
-                <button class="btn btn-danger" @onclick="Delete">Delete</button>
+                <button class="btn btn-danger" @onclick="() => DeleteGame.InvokeAsync(Game)">Delete</button>
+                <button class="btn btn-danger" @onclick="() => DeleteGame2(Game)">Delete</button>
             }
-            @if (message is not null)
-            {
-                <span class="text-danger pl-3">@message</span>
-                message = null;
-            }
+
         </td>
     </tr>
 }
@@ -55,11 +45,21 @@ else
     [Parameter]
     public bool DisplayButtons { get; set; }
 
+    [Parameter]
+    public EventCallback<Game> DeleteGame { get; set; }
+
+    [Parameter]
+    public EventCallback SwitchGame { get; set; }
+
+    [Parameter]
+    public Action<Game> DeleteGame2 { get; set; }
+
+    /*
     string message;
 
     void Delete()
     {
         message = $"Game {Game.Name} deleted";
-    }
+    }*/
 
 }
