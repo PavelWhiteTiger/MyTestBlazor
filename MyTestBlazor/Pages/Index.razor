@@ -1,10 +1,16 @@
 ﻿@page "/"
-
+@using MyTestBlazor.Repo
+@inject IRepository _repository 
 <GameListTable Games="games">
 </GameListTable>
 
 <IndividualGame Game="@oneGameToShow" IsTable="false" SwitchGame="ShowNewGame" DisplayButtons="true"></IndividualGame>
 
+<div class="row">
+    <div class="col text-center">
+        <button @onclick="AddNewGame" class="btn btn-success">Add new Game</button>
+    </div>
+</div>
 
 @code
 {
@@ -15,27 +21,7 @@
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(2000);
-        games = new List<Game>
-        {
-            new()
-            {
-                Name = "Farmila",
-                Genre = "Simulator",
-                ReleaseDate = DateTime.Today
-            },
-            new()
-            {
-                Name = "Vedmachilo",
-                Genre = "RPGG",
-                ReleaseDate = DateTime.Today
-            },
-            new()
-            {
-                Name = "Destroyer",
-                Genre = "Action",
-                ReleaseDate = new DateTime(2000, 2, 1)
-            },
-        };
+        games = _repository.GetAllGames();
         rnd = new Random();
         oneGameToShow = games[rnd.Next(0, games.Count)];
     }
@@ -67,4 +53,8 @@
         return tmpGame;
     }
 
+    private void AddNewGame()
+    {
+        games.Add(new Game(){Name = "Test", Genre = "Test", ReleaseDate = DateTime.Now});
+    }
 }
