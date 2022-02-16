@@ -1,17 +1,16 @@
-﻿<div class="row">
-    <dic class="col text-center">
-        <h1>Welcome Bro</h1>
-    </dic>
+﻿<div class="row mb-3">
+    <div class="col">
+        <select class="btn btn-toolbar border dropdown-toggle" @onchange="ChangeTableStyle">
+            <option selected value="">Choose Table Style</option>
+            @foreach (var item in AppStyle.TableStyle)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+    </div>
 </div>
-
-<div class="row">
-    <dic class="col text-center">
-        <h2>All Games</h2>
-    </dic>
-</div>
-
 <div class="table-responsive">
-    <table class="table">
+    <table class="table @currenTableStyle">
         <thead class="thead-light">
         <tr>
             <th>Name</th>
@@ -69,5 +68,15 @@
         gameToBeDeleted = null;
     }
 
+    [CascadingParameter]
+    public AppStyle AppStyle { get; set; }
+
+    string currenTableStyle = "table-striped";
+
     public Confirmation _confirmation { get; set; }
+
+    private void ChangeTableStyle(ChangeEventArgs currentItem)
+    {
+        currenTableStyle = currentItem.Value.ToString();
+    }
 }

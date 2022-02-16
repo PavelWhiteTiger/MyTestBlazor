@@ -14,6 +14,14 @@
                         <button class="btn btn-primary" @onclick="SwitchGame">Switch the game</button>
                     </div>
                 </div>
+                @if (Game.Name.Equals("Vedmachilo") && AppStyle.WitcherWords != null)
+                {
+                    <div class="row mt-3">
+                        <div class="col alert alert-light text-center">
+                            @AppStyle.WitcherWords[rnd.Next(0, AppStyle.WitcherWords.Count)];
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     }
@@ -51,6 +59,11 @@
 
     [Parameter]
     public EventCallback SwitchGame { get; set; }
+
+    [CascadingParameter]
+    public AppStyle AppStyle { get; set; }
+
+    Random rnd = new(DateTime.Now.Millisecond);
 
     /*
     string message;
