@@ -28,6 +28,11 @@
                 <IndividualGame Game="game" IsTable="true" DisplayButtons="displaybuttons" DeleteGame="DeleteTheGame"></IndividualGame>
             </ItemTemplate>
         </GenericList>
+        <Confirmation @ref="_confirmation" onCancel="OnCancel" onConfirm="OnConfirm">
+            <div class="text-danger">
+                Do you wish to delete @gameToBeDeleted?
+            </div>
+        </Confirmation>
         </tbody>
     </table>
 </div>
@@ -37,12 +42,32 @@
     [Parameter]
     public List<Game> Games { get; set; }
 
+    Game gameToBeDeleted;
 
+    public void DoSomeThing()
+    {
+    }
 
     bool displaybuttons;
 
     void DeleteTheGame(Game game)
     {
-        Games.Remove(game);
+        gameToBeDeleted = game;
+        _confirmation.Show();
     }
+
+    public void OnConfirm()
+    {
+        Games.Remove(gameToBeDeleted);
+        _confirmation.Hide();
+        gameToBeDeleted = null;
+    }
+
+    public void OnCancel()
+    {
+        _confirmation.Hide();
+        gameToBeDeleted = null;
+    }
+
+    public Confirmation _confirmation { get; set; }
 }

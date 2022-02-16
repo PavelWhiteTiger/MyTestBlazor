@@ -1,8 +1,7 @@
 ﻿@page "/"
 @using MyTestBlazor.Repo
 @inject IRepository _repository 
-<GameListTable Games="games">
-</GameListTable>
+<GameListTable Games="games" @ref="_gameListTable "></GameListTable>
 
 <IndividualGame Game="@oneGameToShow" IsTable="false" SwitchGame="ShowNewGame" DisplayButtons="true"></IndividualGame>
 
@@ -17,6 +16,10 @@
     private List<Game> games ;
     Random rnd;
     Game oneGameToShow;
+    
+    //step 1 
+    private GameListTable _gameListTable;
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,6 +58,7 @@
 
     private void AddNewGame()
     {
+        _gameListTable.DoSomeThing();
         games.Add(new Game(){Name = "Test", Genre = "Test", ReleaseDate = DateTime.Now});
     }
 }
