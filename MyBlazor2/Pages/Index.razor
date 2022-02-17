@@ -1,0 +1,9 @@
+﻿@page "/"
+
+<GameList ListOfItems="list"></GameList>
+
+@code
+{
+    [Parameter]
+    public List<GameModel> list { get; set; } = new();
+}
