@@ -1,12 +1,14 @@
 ﻿<div class="col-sm-12 col-md-4 p-3 text-center">
     <div class="game-name">
-        @Game.Name
+        <a>
+            @Game.Name
+        </a>
     </div>
 
     <hr class="hrfix"/>
 
     <div class="card-image">
-        <a href="#">
+        <a href="@url">
             <img src="@Game.Image" alt="@Game.Name" class="game-image"/>
         </a>
     </div>
@@ -15,8 +17,12 @@
 
     <div class="game-card-footer">
         <div class="btn-group my-3 text-center" role="group">
-            <a href="#" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></a>
-            <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+            <a href="#" class="btn btn-outline-info">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <button type="button" class="btn btn-outline-danger">
+                <i class="fa-solid fa-trash"></i>
+            </button>
         </div>
     </div>
 
@@ -26,5 +32,12 @@
 
     [Parameter]
     public GameModel Game { get; set; }
+
+    string url = "";
+
+    protected override void OnInitialized()
+    {
+        url = $"games/{Game.Id}/{Game.Name.Replace(" ", "")}";
+    }
 
 }

@@ -1,9 +1,16 @@
 ﻿@page "/"
-
+@page "/index"
+@using MyBlazor2.Repo
+@inject IRepository _repository
 <GameList ListOfItems="list"></GameList>
 
 @code
 {
     [Parameter]
     public List<GameModel> list { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        list = _repository.GetAllGames();
+    }
 }
