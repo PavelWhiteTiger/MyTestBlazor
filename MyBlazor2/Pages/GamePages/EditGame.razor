@@ -1,6 +1,39 @@
-﻿@page "/games/edit"
+﻿@page "/games/edit/{GenreId:int}"
 <h3>EditGame</h3>
 
+<div class="row">
+    <div class="col">
+        <h1 class="text-info">Edit Genre</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        @if (genre is not null)
+        {
+            <FormForGenre Genre="genre" OnValidSubmit="Edit"/>
+        }
+    </div>
+    <div class="col-6">
+        @if (message is not null)
+        {
+            
+        }
+    </div>
+</div>
+
 @code {
-    
+
+    [Parameter]
+    public int Type { get; set; }
+
+    Genre genre;
+    string message = "";
+    string cssClass = "";
+
+    private void Edit()
+    {
+        throw new NotImplementedException();
+    }
+
 }
